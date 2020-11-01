@@ -1,0 +1,166 @@
+﻿@using SyncfusionMvcApplication3
+@{
+    ViewBag.Title = "ComboBox";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>ComboBox Features:</h2>
+<br/>
+<li> Autofill</li>
+<li> Cascading</li>
+<li> Filtering</li>
+<li> Grouping</li>
+<li> Icon</li>
+<li> RTL</li>
+<li> Sorting</li>
+<li> Theme - Flat-Azure</li>
+<br/>
+<div class="frame">
+            <div class="frame">
+       <div class="row">  
+                <div class="col-xs-8 col-sm-4">
+            <span class="txt">Select Group</span>
+            @Html.EJ().ComboBox("groupsList").Datasource((IEnumerable<groupsList>)ViewBag.datasource).ComboBoxFields(f => f.Value("parentId").Text("text")).ClientSideEvents(e => e.Change("onChange")).Placeholder("Select")
+         </div>
+            <div class="col-xs-8 col-sm-4" >
+            <span class="txt">Select Country</span>
+            @Html.EJ().ComboBox("countryList").Datasource((IEnumerable<CountryList>)ViewBag.datasource1).ComboBoxFields(fields => fields.GroupBy("category").Text("text").IconCss("iconclass")).Placeholder("Select").Enabled(false).AutoFill(true).AllowFiltering(true).ClientSideEvents(h => h.Filtering("filtering")).EnableRTL(true).SortOrder(SortOrder.Descending) 
+        </div>
+        </div>
+    </div>
+    </div>
+     <script type="text/javascript">
+         var cascadeData;
+         function onChange(e) {
+             var ctry = $('#countryList').data("ejComboBox");
+             ctry.option({ enabled: true, query: new ej.Query().where('parentId', 'equal', e.model.value), value: null });
+             cascadeData = ctry.listData; 
+         }
+    </script>
+        <script type="text/javascript">
+            function filtering(e) {
+                var query = new ej.Query().select(['text', 'parentId', 'sprite', 'category', 'iconclass', 'value']);
+                query = (e.text !== '') ? query.where('text', 'startswith', e.text, true) : query;
+                e.updateData(cascadeData, query);
+            }
+    </script>    
+            <style type="text/css">
+        /*controls*/
+        .flag {
+    background: url("../Content/images/ComboBox/flags.png") no-repeat;
+     float: right;
+    height: 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 25px;
+}
+    .flag.flag-am {
+        background-position: -25px 0;
+    }
+    .flag.flag-ar {
+        background-position: -50px 0;
+    }
+    .flag.flag-bd {
+        background-position: -75px 0;
+    }
+    .flag.flag-br {
+        background-position: -100px 0;
+    }
+    .flag.flag-ca {
+        background-position: -125px 0;
+    }
+    .flag.flag-cn {
+        background-position: 0 -15px;
+    }
+    .flag.flag-cu {
+        background-position: -25px -15px;
+    }
+    .flag.flag-dk {
+        background-position: -50px -15px;
+    }
+    .flag.flag-dz {
+        background-position: -75px -15px;
+    }
+    .flag.flag-ee {
+        background-position: -100px -15px;
+    }
+    .flag.flag-eg {
+        background-position: -125px -15px;
+    }
+    .flag.flag-es {
+        background-position: 0 -30px;
+    }
+    .flag.flag-fi {
+        background-position: -25px -30px;
+    }
+    .flag.flag-fr {
+        background-position: -50px -30px;
+    }
+    .flag.flag-gl {
+        background-position: -75px -30px;
+    }
+    .flag.flag-id {
+        background-position: -100px -30px;
+    }
+    .flag.flag-in {
+        background-position: -125px -30px;
+    }
+    .flag.flag-mx {
+        background-position: 0 -45px;
+    }
+    .flag.flag-my {
+        background-position: -25px -45px;
+    }
+    .flag.flag-nl {
+        background-position: -50px -45px;
+    }
+    .flag.flag-no {
+        background-position: -75px -45px;
+    }
+    .flag.flag-nz {
+        background-position: -100px -45px;
+    }
+    .flag.flag-pl {
+        background-position: -125px -45px;
+    }
+    .flag.flag-pt {
+        background-position: 0 -60px;
+    }
+    .flag.flag-qa {
+        background-position: -25px -60px;
+    }
+    .flag.flag-ro {
+        background-position: -50px -60px;
+    }
+    .flag.flag-sa {
+        background-position: -75px -60px;
+    }
+    .flag.flag-sg {
+        background-position: -100px -60px;
+    }
+    .flag.flag-th {
+        background-position: -125px -60px;
+    }
+    .flag.flag-tr {
+        background-position: 0 -75px;
+    }
+    .flag.flag-ua {
+        background-position: -25px -75px;
+    }
+    .flag.flag-us {
+        background-position: -50px -75px;
+    }
+    .flag.flag-uy {
+        background-position: -75px -75px;
+    }
+    .flag.flag-vn {
+        background-position: -100px -75px;
+    }
+    .flag.flag-ye {
+        background-position: -125px -75px;
+    }
+.txt {
+    display: table-cell;
+    height: 20px;
+    vertical-align: middle;
+}
+    </style>

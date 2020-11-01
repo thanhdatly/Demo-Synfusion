@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "PredectiveAnalytics";
+    ViewData["ProductName"]="PredectiveAnalytics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>PredictiveAnalytics Features:</h2>
+<br/>
+<li> Default</li>
+<br/>
+<div id = "ControlRegion">
+<body>
+    <form id="form1">
+       <div style="font-family:Tahoma; font-weight:bold">
+            @Html.Label("General Regression Model")<br />
+            </div>
+            <br />@Html.Label("functionName: classification") <br />
+        @Html.Label("AlgorithmName: glm")<br />
+        @Html.Label("Distribution: binomial")<br />
+        @Html.Label("LinkFunction: logit") <br />
+        <div>
+                <br /><br />
+                @Html.Label("Enter numeric values of Petal/Sepal length/width to predict the kind of Species:Setosa,Versicolor,Virginica")<br /><br /><br />
+                @Html.Label("Petal Length")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.Label("Petal Width")
+               <br />
+                @Html.TextBox("PetalLength")     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.TextBox("PetalWidth")
+                <br /><br /><br />
+               @Html.Label("Sepal Length")
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.Label("Sepal Width")
+                <br />
+                @Html.TextBox("SepalLength")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.TextBox("SepalWidth")
+            </div>
+            <br /><br />
+            <input type="button" id="submitId" value="Predict" onclick="myfunc()" />
+            <script type="text/javascript">
+                function myfunc() {
+                    var PL = $('#PetalLength').val();
+                    var PW = $('#PetalWidth').val();
+                    var SL = $('#SepalLength').val();
+                    var SW = $('#SepalWidth').val();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("PredictiveAnalyticsFeatures", "PredictiveAnalytics")',
+                        data: {
+                        'PetalLength': PL, 'PetalWidth':PW , 'SepalLength': SL, 'SepalWidth': SW },
+                        success: function (data) {
+                            debugger;
+                            $("#txtTitle").val(data);
+                        },
+                        error: function () { 
+                        }
+                    });
+                }
+            </script>
+</form>
+    <div class="result"><br />
+        @Html.TextBox("txtTitle")
+    </div>
+</body>
+</div>

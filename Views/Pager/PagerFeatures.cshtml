@@ -1,0 +1,22 @@
+﻿@using SyncfusionMvcApplication3
+@{
+    ViewBag.Title = "Pager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Pager Features:</h2>
+<br/>
+<li> Pager Samples - Default</li>
+<li> Theme - Flat-Azure</li>
+<br/>
+<div id="ControlRegion">
+    <div class="frame ">
+        <div class="control">
+            @Html.EJ().Pager("pager").PageCount(5).PageSize(1).IsResponsive(true).TotalRecordsCount(20) 
+        </div>
+    </div>
+    <style>
+        .frame .control {
+            margin-left: 100px;
+        }
+    </style>
+</div>

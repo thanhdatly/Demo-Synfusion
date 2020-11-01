@@ -1,0 +1,24 @@
+﻿@using SyncfusionMvcApplication3
+@{
+    ViewBag.Title = "FileExplorer";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>FileExplorer Features:</h2>
+<br/>
+<li> Default</li>
+<li> RTL</li>
+<li> Localization - en-US</li>
+<li> Theme - Flat-Azure</li>
+<br/>
+     <script src="@Url.Content("~/Scripts/ej/i18n/ej.culture.en-US.min.js")"></script>
+     <script src="@Url.Content("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")"></script>
+<div id = "ControlRegion">
+<div class="layout">
+@Html.EJ().FileExplorer("fileExplorer").FileTypes("*.png, *.gif, *.jpg, *.jpeg, *.docx").Path("~/content/images/FileExplorer/").AjaxAction(@Url.Content("/FileExplorer/FileActionDefault")).Width("900px").Height("400px").IsResponsive(true).EnableRTL(true).Locale("en-US").ShowThumbnail(false)
+</div>
+<style>
+    .layout{
+        margin-top:10px;
+    }
+</style>
+</div>

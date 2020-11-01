@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "FileUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>File Upload:</h2>
+<br/>
+     <script src="@Url.Content("~/Scripts/ej/i18n/ej.culture.en-US.min.js")"></script>
+     <script src="@Url.Content("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")"></script>
+<div id = "ControlRegion">
+<div class="frame">
+        <div class="control">
+            Select a file to upload
+            <div class="posupload">
+                @Html.EJ().Uploadbox("UploadDefault").SaveUrl("SaveDefault").Locale("en-US").RemoveUrl("RemoveDefault")
+            </div>
+        </div>
+    </div>
+<style class="cssStyles">
+        .posupload
+        {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        .frame
+        {
+            margin-top: 10%;
+        }
+        .control
+        {
+            margin-left: 10%;
+        }
+    </style>
+</div>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "DateRangePicker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>DateRangePicker Features:</h2>
+<br/>
+<li> DateRangePicker Samples - Default</li>
+<li> Localization - en-US</li>
+<li> Theme - Flat-Azure</li>
+<br/>
+<div id = "ControlRegion">
+    <div class="frame ">
+        <div class="control">
+            @Html.EJ().DateRangePicker("DateRangePick").DateFormat("dd/MM/yyyy").EnableTimePicker(false).Locale("en-US")
+        </div>
+    </div>
+    <style>
+        .frame .control {
+            margin-left: 100px;
+        }
+    </style>
+</div>

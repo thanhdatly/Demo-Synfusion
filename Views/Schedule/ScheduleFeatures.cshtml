@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "ScheduleFeatures";
+}
+<h2>ScheduleFeatures</h2>
+<li> Localization</li>
+<li> TimeMode</li>
+<li> RecurrenceEditor</li>
+<li> TimeZone</li>
+<li> StartandEnd Hour</li>
+<li> RTL</li>
+<li> Keyboard Navigation</li>
+<li> Localization - en-US</li>
+<li> Theme - Flat-Azure</li>
+     <script src="@Url.Content("~/Scripts/ej/i18n/ej.culture.ar-AE.min.js")"></script>
+     <script src="@Url.Content("~/Scripts/ej/l10n/ej.localetexts.ar-AE.min.js")"></script>
+<div id = "ControlRegion">
+  @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .EnableRTL(true)
+        .AllowKeyboardNavigation(true)
+        .Locale("ar-AE")
+        .TimeMode(Syncfusion.JavaScript.TimeMode.Hour12)
+        .TimeZone("UTC +7:30")
+        .CurrentDate(new DateTime(2014,6,2))
+        .AppointmentSettings(fields => fields.Datasource(Model)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+            .StartHour(0)
+            .EndHour(12)
+            .AppointmentTemplateId("#MyTemplate")
+            )
+ <script id="MyTemplate" type="text/x-jsrender">
+        <div style="height: 100%">
+            <div style="float: left; width: 50px;">
+                {{:~format(StartTime)}}
+            </div>
+            <div>
+                <div>{{:Subject}}</div>
+            </div>
+        </div>
+    </script>
+    <script>
+        function _getImages(date) {
+            switch (new Date(date).getDay()) {
+                case 0:
+                    return "<img src='../Content/Images/schedule/cake.png'/>"
+                    break;
+                case 1:
+                    return "<img src='../Content/Images/schedule/basketball.png'/>"
+                    break;
+                case 2:
+                    return "<img src='../Content/Images/schedule/rugby.png'/>"
+                    break;
+                case 3:
+                    return "<img src='../Content/Images/schedule/guitar.png'/>"
+                    break;
+                case 4:
+                    return "<img src='../Content/Images/schedule/music.png'/>"
+                    break;
+                case 5:
+                    return "<img src='../Content/Images/schedule/doctor.png'/>"
+                    break;
+                case 6:
+                    return "<img src='../Content/Images/schedule/beach.png'/>"
+                    break;
+            }
+        }
+        $.views.helpers({ format: _getImages });
+    </script>
+<style>
+        .e-monthappointment {
+            height: auto !important;
+        }
+    </style>
+</div>
+				<h3>Recurrence Editor</h3>
+<div class="prop-grid jumbotron">
+			<div class="content-container-fluid">
+        <div class="row">
+            <div class="cols-sample-area" style="border: none;">
+                <div style="margin: 0 15%;">
+                    @(Html.EJ().RecurrenceEditor("RecurrenceEditor").SelectedRecurrenceType(2).RecurrenceEditorClientSideEvents(evt => evt.Create("onCreate")))
+                    <button onclick="closerecurrence()" id="donerecur1" class='recurbutton' style="margin-left: 30%;">Generate Rule</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="recurrenceAlert" style="display: none">
+        <form id="token">
+            <table width="100%" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <div id="ruleText"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div style="padding-top: 10px;">
+            <button id="btncancel" style="margin: 0 40%;">Close</button>
+        </div>
+    </div>
+	</div>
+<script>
+    $(function () {
+        $("#donerecur1").ejButton({ width: '155px', height: '35px', showRoundedCorner: true });
+        $("#btncancel").ejButton({ showRoundedCorner: true, size: "mini", click: "close" });
+        $("#recurrenceAlert").ejDialog({ width: "auto", height: "auto", position: { X: 500, Y: 300 }, showOnInit: false, enableModal: true, title: "Recurrence Rule", enableResize: false, allowKeyboardNavigation: false, close: "close" });
+        $("#RecurrenceEditor").after($("#donerecur1"));
+        $("#RecurrenceEditor").css({ border: "1px solid #c3c3c3", padding: "5px", marginBottom: "15px", width: "550px" });
+    });
+    function closerecurrence() {
+        $("#recurrenceAlert").ejDialog("open");
+        var obj = $(".e-recurrenceeditor").data("ejRecurrenceEditor")
+        obj.getRecurrenceRule();
+        $("#recurrenceAlert").find("#ruleText").html(obj._recRule);
+    }
+    function onCreate() {
+        $("#RecurrenceEditor_recurrenceType").ejDropDownList({ select: "drppopupshow" });
+    }
+    function drppopupshow(args) {
+        var obj = $("#donerecur1").data("ejButton");
+        if (args.itemId == 0) obj.disable();
+        else obj.enable();
+    }
+    function close() {
+        $("#recurrenceAlert").ejDialog("close");
+    }
+</script>

@@ -1,0 +1,1 @@
+<%@ ServiceHost Language="C#" Debug="true" Service="SyncfusionMvcApplication3.RelationalGridService" CodeBehind="RelationalGridService.svc.cs" %>
